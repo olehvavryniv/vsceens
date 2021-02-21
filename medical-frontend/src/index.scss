@@ -1,0 +1,185 @@
+@import-normalize;
+
+$main-blue: rgb(0, 71, 95);
+
+@font-face {
+  font-family: 'PTSerif';
+  src: url('./fonts/PTSerif-Bold.ttf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PTSerif';
+  src: url('./fonts/PTSerif-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PTSerif';
+  src: url('./fonts/PTSerif-Italic.ttf');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'PTSans';
+  src: url('./fonts/PTSans-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PTSans';
+  src: url('./fonts/PTSans-Bold.ttf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+}
+
+.page-container {
+  height: 100vh;
+
+  .top-bar {
+    height: 17vh;
+    background-color: $main-blue;
+    color: white;
+    font-family: 'PTSerif';
+    font-weight: bold;
+    padding: 0 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .date-time-container {
+      font-size: 4.5rem;
+      font-weight: bold;
+      font-family: 'PTSans';
+
+      .date-wrapper {
+        display: flex;
+        justify-content: space-between;
+        font-size: 2.5rem;
+        font-weight: normal;
+      }
+    }
+
+    .organization-name {
+      font-size: 2.5rem;
+      text-align: center;
+    }
+  }
+
+
+  .page-wrapper {
+    height: 83vh;
+    overflow: hidden;
+
+    .label {
+      color: $main-blue;
+      font-family: "PTSerif";
+      font-weight: bold;
+    }
+
+    .news-block {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      padding: 0 4rem;
+      font-family: 'PTSerif';
+
+      .header {
+        font-weight: bold;
+        font-size: 3rem;
+        text-align: center;
+        padding: 3rem 0;
+        color: $main-blue;
+      }
+
+      .content {
+        font-weight: normal;
+        font-size: 2rem;;
+      }
+    }
+
+    .doc-info-block {
+      display: flex;
+      justify-content: space-around;
+      padding-top: 4rem;
+      font-size: 2rem;
+
+      .left-panel {
+        width: 35%; 
+        text-align: center;
+        
+        .photo-wrapper {
+          height: 60vh;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        .declarations-info {
+          margin-top: 2rem;
+          font-weight: bold;
+        }
+
+        .declarations-date {
+          margin-top: 0.5rem;
+        }
+      }
+
+      .right-panel {
+        width: 55%;
+
+        .name {
+          color: $main-blue;
+          font-family: "PTSerif";
+          font-weight: bold;
+          font-size: 3.5rem;
+        }
+
+        .specialization {
+          font-style: italic;
+          margin-top: 0.5rem;
+
+          span {
+            padding-bottom: 0.3rem;
+            border-bottom: 1px $main-blue solid;
+          }
+        }
+
+        .education {
+          margin-top: 4rem !important;
+        }
+
+        .address {
+          margin-top: 5rem !important;
+        }
+
+        .info-item {
+          display: flex;
+          justify-content: flex-start;
+          align-items: baseline;
+          margin-top: 0.5rem;
+
+          .label {
+            margin-right: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
