@@ -1,26 +1,55 @@
 import MongoClient from 'mongodb';
+import MongoService from './mongo-service.js';
 
 class ScreenController {
     constructor(){
-        this.dbClient = new MongoClient(process.env.MONGO_URL, { useUnifiedTopology: true });
+        this.dbService = new MongoService();
         this.screens = [
-            { name: 'news', duration: 10000, data: {} },
-            { name: 'video', duration: 20000, data: {} }
+            { name: 'news', durationSeconds: 15 },
+            { name: 'videos' },
+            { name: 'doctor_infos', durationSeconds: 15 }
         ];
         this.currentScreenIndex = -1;
+        this.screenDataIndexes = {};
     }
 
-    nextScreen() {
-        this.currentScreenIndex++;
-        if (this.currentScreenIndex > this.screens.length - 1){
-            this.currentScreenIndex = 0;
+    async nextScreen() {
+        for (let i = 0; i < this.screens.length; i++) {
+            this.currentScreenIndex++;
+            if (this.currentScreenIndex > this.screens.length - 1){
+                this.currentScreenIndex = 0;
+            }
+    
+            const screen = this.screens[this.currentScreenIndex];
+            const dataCount = await this.dbService.count(screen.name);
+            if (dataCount == 0) {
+                continue;
+            }
+            const screenData = await this.dbService.getNext(screen.name, this.getScreenDataIndex(screen.name, dataCount));
+            if (screenData.length == 0) {
+                continue;
+            }
+
+            screen.data = screenData[0];
+            if (screen.durationSeconds == undefined) {
+                screen.durationSeconds = screen.data.duration_seconds;
+            }
+    
+            return screen;
         }
 
-        return this.screens[this.currentScreenIndex];
+        return null;
     }
 
-    getScreenData() {
+    getScreenDataIndex(dataType, dataCount) {
+        let index = this.screenDataIndexes[dataType];
+        index = index != undefined ? ++index : 0;
+        if (index >= dataCount) {
+            index = 0;
+        }
+        this.screenDataIndexes[dataType] = index;
 
+        return index;
     }
 }
 

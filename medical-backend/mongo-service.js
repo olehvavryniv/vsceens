@@ -13,8 +13,16 @@ class MongoService {
         return MongoService.mongoClient.db(this.DBName); 
     }
 
-    get videos() {
-        return this.DB.collection('videos');
+    collection(collectionName) {
+        return this.DB.collection(collectionName);
+    }
+
+    async getNext(collectionName, offset) {
+        return await this.collection(collectionName).find().skip(offset).limit(1).toArray();
+    }
+
+    async count(collectionName) {
+        return await this.collection(collectionName).count();
     }
 }
 

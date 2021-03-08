@@ -1,5 +1,6 @@
 import MongoService from './mongo-service.js';
-import Axios from 'axios'
+import Axios from 'axios';
+import URI from 'urijs';
 
 class DbUpdater {
     constructor() {
@@ -14,12 +15,25 @@ class DbUpdater {
 
     async updateData() {
         const dbService = new MongoService();
-        this.dataTypes.forEach(async (dataType) => {
-            const responce = await Axios.get(dataType.url);
-            responce.data.forEach(async (dataItem) => {
-                await dbService.DB.collection(dataType.name).insertOne(dataItem);
-            });
-        });
+        for await (const dataType of this.dataTypes) {
+            let page = 1;
+            let data = [];
+            while (true) {
+                const url = URI(dataType.url).query({page: page});
+                const responce = await Axios.get(url.toString());
+                if (responce.data.length == 0) {
+                    break;
+                }
+
+                data = data.concat(responce.data);
+                page++;
+            }
+            const dbCollection = dbService.DB.collection(dataType.name);
+            await dbCollection.deleteMany();
+            if (data.length > 0) {
+                await dbCollection.insertMany(data);
+            }
+        }
     }
 }
 

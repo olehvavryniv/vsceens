@@ -10,8 +10,13 @@ MongoService.InitConnection();
 const app = express();
 const screenController = new ScreenController();
 
-app.get('/next-screen', (req, res) => {
-  return res.send(screenController.nextScreen());
+app.get('/next-screen', async (req, res) => {
+  const nextScreen = await screenController.nextScreen();
+  if (nextScreen == null) {
+    return res.send({ error: 'no-data' });
+  } else {
+    return res.send(nextScreen);
+  }
 });
 
 app.listen(process.env.PORT, () => {
@@ -19,13 +24,8 @@ app.listen(process.env.PORT, () => {
 });
 
 async function test() {
-  // const service = new MongoService();
-  // await service.init();
-  // const res = await service.videos.insertOne({test: "123"});
-  // console.log(res);
   const q = new DbUpdater();
   await q.updateData();
-
 }
 
 test();
