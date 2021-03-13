@@ -5,9 +5,9 @@ class ScreenController {
     constructor(){
         this.dbService = new MongoService();
         this.screens = [
-            { name: 'news', durationSeconds: 15 },
+            { name: 'news', durationSeconds: 10 },
             { name: 'videos' },
-            { name: 'doctor_infos', durationSeconds: 15 }
+            { name: 'doctor_infos', durationSeconds: 10 }
         ];
         this.currentScreenIndex = -1;
         this.screenDataIndexes = {};
@@ -32,7 +32,7 @@ class ScreenController {
 
             screen.data = screenData[0];
             if (screen.durationSeconds == undefined) {
-                screen.durationSeconds = screen.data.duration_seconds;
+                screen.durationSeconds = screen.data.durationSeconds;
             }
     
             return screen;

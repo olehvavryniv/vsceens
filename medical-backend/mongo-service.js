@@ -22,7 +22,7 @@ class MongoService {
     }
 
     async count(collectionName) {
-        return await this.collection(collectionName).count();
+        return await this.collection(collectionName).countDocuments();
     }
 }
 

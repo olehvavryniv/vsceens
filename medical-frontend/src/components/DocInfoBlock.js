@@ -1,6 +1,7 @@
 import DocPhoto from '../images/doc_photo.jpeg';
 
-function DocInfoBlock() {
+function DocInfoBlock(props) {
+    const { data } = props;
     return(
         <div className="doc-info-block">
             <div className="left-panel">
@@ -9,18 +10,18 @@ function DocInfoBlock() {
                 </div>
                 <div className="declarations-info">
                     <span className="label">Кількість декларацій лікаря: </span>
-                    1652
+                    {data.declarationCount}
                 </div>
                 <div className="declarations-date">
-                    станом на 27.05.2021
+                    станом на {data.declarationDate}
                 </div>
             </div>
             <div className="right-panel">
                 <div className="name">
-                    Бондаренко Галина Юріївна
+                    {data.name}
                 </div>
                 <div className="specialization">
-                    <span>Лікар загальної практики - сімейний лікар</span>
+                    <span>{data.specialty}</span>
                 </div>
                 <div className="info-item education">
                     <div className="label">
@@ -28,11 +29,11 @@ function DocInfoBlock() {
                     </div>
                     <div className="value">
                         <div>
-                            1981 р., Тернопільський державний медичний інститут
+                            {data.education}
                         </div>
                         <div>
                             <i>Спеціальність: </i>
-                            <span>загальна практика-сімейна медицина</span>
+                            <span>{data.educationSpecialty}</span>
                         </div>
                     </div>
                 </div>
@@ -41,7 +42,7 @@ function DocInfoBlock() {
                         Кваліфікаційна категорія:
                     </div>
                     <div className="value">
-                        вища
+                        {data.category}
                     </div>
                 </div>
                 <div className="info-item">
@@ -49,7 +50,7 @@ function DocInfoBlock() {
                         Досвід роботи:
                     </div>
                     <div className="value">
-                        37 років стажу
+                        {data.experience}
                     </div>
                 </div>
                 <div className="info-item address">
@@ -57,11 +58,11 @@ function DocInfoBlock() {
                         Адреса:
                     </div>
                     <div className="value">
-                        <div>Амбулаторія №3, каб 57</div>
-                        <div>вул. Князя Острозького, 6</div>
+                        <div>{data.workPlace}</div>
+                        <div>{data.address}</div>
                         <div>
                             <i>зав.абмул.: </i>
-                            <span>Олексієвець Соломія Ростиславівна (каб. 51)</span>
+                            <span>{data.boss}</span>
                         </div>
                     </div>
                 </div>
@@ -70,7 +71,7 @@ function DocInfoBlock() {
                         Реєстратура:
                     </div>
                     <div className="value">
-                        52-74-07, +38 0672132183
+                        {data.phones}
                     </div>
                 </div>
             </div>
