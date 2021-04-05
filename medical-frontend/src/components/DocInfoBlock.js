@@ -6,7 +6,7 @@ function DocInfoBlock(props) {
         <div className="doc-info-block">
             <div className="left-panel">
                 <div className="photo-wrapper">
-                    <img src={DocPhoto}></img>
+                    <img src={`data:image/jpeg;base64,${data.photoBase64}`}></img>
                 </div>
                 <div className="declarations-info">
                     <span className="label">Кількість декларацій лікаря: </span>

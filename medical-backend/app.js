@@ -4,9 +4,11 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import DbUpdater from './db-updater.js';
 import MongoService from './mongo-service.js';
+import Axios from 'axios';
 
 dotenv.config();
 MongoService.InitConnection();
+Axios.defaults.headers.common['Token'] = process.env.SCREEN_TOKEN;
 
 const app = express();
 const screenController = new ScreenController();
@@ -27,6 +29,7 @@ app.listen(process.env.PORT, () => {
 });
 
 async function Init() {
+
   const q = new DbUpdater();
   await q.updateData();
 
