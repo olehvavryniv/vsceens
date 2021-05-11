@@ -1,0 +1,120 @@
+@import-normalize;
+
+@font-face {
+    font-family: "Roboto Condensed";
+    src: url('/fonts/RobotoCondensed-Regular.ttf') format('opentype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url('/fonts/Roboto-Regular.ttf') format('opentype');
+    font-style: normal;
+}
+
+$gray-1: #8D8D8D;
+$green-1: #47DD00;
+$yellow-1: #FBD300;
+
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    overflow-y: hidden;
+}
+
+.main {
+    display: flex;
+}
+
+.left-panel {
+    width: 19%;
+    height: 100vh;
+    padding: 1rem 0;
+    box-sizing: border-box;
+
+    .logo-wrapper {
+        height: 20vh;
+        text-align: center;
+    }
+
+    .schedules-wrapper {
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        .schedule-item {
+            .name {
+                font-family: 'Roboto';
+                font-size: 2rem;
+                color: $gray-1;
+            }
+
+            .time {
+                font-family: 'Roboto Condensed';
+                font-size: 5.5rem;
+            }
+
+            .lesson-name {
+                font-family: 'Roboto Condensed';
+                font-size: 2.5rem;
+            }
+
+            .dot {
+                display: inline-block;
+                width: 1rem;
+                height: 1rem;
+                border-radius: 1rem;
+                margin-right: 1rem;
+            }
+
+            .dot.green {
+                background-color: $green-1;
+            }
+
+            .dot.yellow {
+                background-color: $yellow-1;
+            }
+        }
+    }
+}
+
+.main-panel {
+    flex: 1;
+    height: 100vh;
+    background: linear-gradient(90deg, #F4F4F4 0%, #F4F4F4 0.01%, rgba(244, 244, 244, 0) 50%);
+    box-sizing: border-box;
+    padding: 4rem 3rem 4rem 5rem;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .heading {
+            width: 80%;
+            padding: 1rem 2rem;
+            font-family: 'Roboto';
+            font-size: 3.5rem;
+            background-color: white;
+            border-radius: 2rem;
+        }
+
+        .clock-wrapper {
+            font-family: 'Roboto Condensed';
+
+            .time {
+                font-size: 5rem;
+            }
+
+            .date {
+                font-size: 2rem;
+                text-align: center;
+            }
+        }
+    }
+}
