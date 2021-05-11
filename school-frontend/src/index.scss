@@ -15,6 +15,8 @@
 $gray-1: #8D8D8D;
 $green-1: #47DD00;
 $yellow-1: #FBD300;
+$red-1: #FF0000;
+$blue-1: #0085FF;
 
 html {
     font-size: 16px;
@@ -89,6 +91,9 @@ body {
     background: linear-gradient(90deg, #F4F4F4 0%, #F4F4F4 0.01%, rgba(244, 244, 244, 0) 50%);
     box-sizing: border-box;
     padding: 4rem 3rem 4rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 
     .header {
         display: flex;
@@ -114,6 +119,49 @@ body {
             .date {
                 font-size: 2rem;
                 text-align: center;
+            }
+        }
+    }
+
+    .screen-wrapper {
+        flex: 1;
+        padding: 2rem;
+
+        .announcement-block {
+            font-family: 'Roboto';
+            font-size: 3rem;
+            padding-top: 2rem;
+
+            .announcement {
+                display: flex;
+                align-items: baseline;
+                margin-bottom: 5rem;
+
+                .dot {
+                    width: 2rem;
+                    height: 2rem;
+                    border-radius: 2rem;
+                    margin: 0 2rem 0 0;
+
+                    &.red {
+                        background-color: $red-1;
+                    }
+
+                    &.blue {
+                        background-color: $blue-1;
+                    }
+                }
+
+                .text {
+                    flex: 1;
+                }
+
+            }
+
+            .description {
+                font-family: 'Roboto Condensed';
+                font-size: 2rem;
+                color: $gray-1;
             }
         }
     }

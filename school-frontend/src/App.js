@@ -1,3 +1,4 @@
+import Announcement from './components/blocks/announcement';
 import Header from './components/header';
 import LeftPanel from './components/left-panel';
 import logo from './logo.svg';
@@ -9,7 +10,7 @@ function App() {
       <div className='main-panel'>
         <Header/>
         <div className='screen-wrapper'>
-          Screen
+          <Announcement/>
         </div>
       </div>
     </div>
