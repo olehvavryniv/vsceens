@@ -13,10 +13,12 @@
 }
 
 $gray-1: #8D8D8D;
+$gray-2: #CECECE;
 $green-1: #47DD00;
 $yellow-1: #FBD300;
 $red-1: #FF0000;
 $blue-1: #0085FF;
+$blue-2: #85A5F8;
 
 html {
     font-size: 16px;
@@ -162,6 +164,118 @@ body {
                 font-family: 'Roboto Condensed';
                 font-size: 2rem;
                 color: $gray-1;
+            }
+        }
+
+        .calendar-block {
+            .week-wrapper {
+                display: flex;
+                justify-content: space-between;
+                font-family: 'Roboto Condensed';
+
+                .week-item {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 1rem;
+                    border-radius: 2rem;
+                    color: $gray-1;
+
+                    .day-name {
+                        font-size: 2.3rem;
+                    }
+
+                    .date {
+                        font-size: 6rem;
+                    }
+
+                    &.current {
+                        background-color: white;
+                        color: black;
+                    }
+
+                    &.weekend {
+                        color: $gray-2;
+                    }
+
+                    .dots-wrapper {
+                        min-height: 0.7rem;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        
+                        .dot {
+                            width: 1rem;
+                            height: 1rem;
+                            border-radius: 0.7rem;
+                            background-color: $blue-2;
+                            margin-right: 0.3rem;
+                            margin-left: 0.3rem;
+                        }
+                    }
+                }
+            }
+
+            .today-events {
+                background-color: white;
+                border-radius: 2rem;
+                margin-top: 1rem;
+            }
+
+            .next-events {
+                color: $gray-1;
+
+                .separator {
+                    background-color: $gray-1 !important;
+                }
+            }
+
+            .event {
+                display: flex;
+                align-items: center;
+
+                .separator {
+                    width: 2px;
+                    background-color: black;
+                    height: 7rem;
+                    margin-right: 2rem;
+                }
+
+                .date {
+                    font-family: 'Roboto Condensed';
+                    font-size: 6rem;
+                    padding: 1.5rem;
+                }
+
+                .description {
+                    font-family: 'Roboto';
+                    flex: 1;
+
+                    .name {
+                        font-size: 3rem;
+                    }
+
+                    .details {
+                        display: flex;
+                        font-size: 1.7rem;
+                        margin-top: 0.7rem;
+
+                        .location {
+                            width: 30%;
+
+                            svg {
+                                margin-right: 0.5rem;
+                            }
+                        }
+
+                        .time {
+                            svg {
+                                margin-right: 0.5rem;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

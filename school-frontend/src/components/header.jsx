@@ -2,7 +2,7 @@ function Header(props) {
     return(
         <div className='header'>
           <div className='heading'>
-            Вітаємо з Днем народження!
+            Травень 2021
           </div>
           <div className='clock-wrapper'>
               <div className='time'>13:21</div>
