@@ -127,7 +127,7 @@ body {
 
     .screen-wrapper {
         flex: 1;
-        padding: 2rem;
+        padding: 2rem 0;
 
         .announcement-block {
             font-family: 'Roboto';
@@ -275,6 +275,87 @@ body {
                             }
                         }
                     }
+                }
+            }
+        }
+
+        .birthdays-block {
+            font-family: 'Roboto';
+
+            .birthdays {
+                display: flex;
+                flex-wrap: wrap;
+                height: 60vh;
+                align-items: center;
+
+                .birthday-item {
+                    width: 50%;
+
+                    .name {
+                        font-size: 3rem;
+                    }
+
+                    .label {
+                        font-size: 2rem;
+                    }
+                }
+            }
+
+            .famous-birthday {
+                display: flex;
+                align-items: center;
+
+                .photo {
+                    margin-right: 1rem;
+                    border-radius: 10rem;
+                    overflow: hidden;
+                }
+
+                .info {
+                    .years {
+                        color: $gray-1;
+                        font-size: 1.5rem;
+                    }
+
+                    .name {
+                        font-size: 2.5rem;
+                    }
+
+                    .description {
+                        color: $gray-1;
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+        }
+
+        .rewards-block {
+            display: flex;
+            justify-content: space-around;
+
+            .reward {
+                width: 40%;
+                margin-top: 3rem;
+
+                .photo {
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                .title {
+                    font-family: 'Roboto';
+                    font-size: 2.5rem;
+                    text-align: center;
+                    margin-top: 1.5rem;
+                }
+
+                .description {
+                    font-family: 'Roboto';
+                    font-size: 1.7rem;
+                    color: $gray-1;
+                    text-align: center;
+                    margin-top: 1.5rem;
                 }
             }
         }
