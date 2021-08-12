@@ -1,20 +1,16 @@
-function Announcement(props) {
+function Announcement({data}) {
     return(
         <div className='announcement-block'>
-          <div className='announcement'>
-              <div className='dot red'></div>
-              <div className='text'>З 1 вересня учні без щеплення порти кору допускатися до навчання не будуть!</div>
-          </div>
-
-          <div className='announcement'>
-              <div className='dot blue'></div>
-              <div className='text'>Запрошуємо до реєстрації усіх бажаючиху шкільний театр «Водограй». Звертайтеся до секретаря!</div>
-          </div>
-
-          <div className='announcement'>
-              <div className='dot red'></div>
-              <div className='text'>З 1 вересня учні без щеплення порти кору допускатися до навчання не будуть!</div>
-          </div>
+            { data.map((item) => {
+                const className = "dot " + (item.priority ? 'red' : 'blue');
+                return(
+                    <div className='announcement'>
+                        <div className={className}></div>
+                        <div className='text'>{ item.text }</div>
+                    </div>
+                )
+                }) 
+            }
 
           <div className='description'>
             *щоб розмісти тут своє оголошення, зверніться до секретаря

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import Axios from 'axios';
 import NewsBlock from './NewsBlock';
 import DocInfoBlock from './DocInfoBlock';
 import VideoBlock from './VideoBlock';
-import Axios from 'axios';
 
 const nextScreenUrl = 'http://localhost:3001/next-screen';
 
@@ -11,7 +11,6 @@ function PageWrapper() {
     const getNextScreen = async () => {
         const response = await Axios.get(nextScreenUrl);
         setTimeout(() => { getNextScreen() }, response.data.durationSeconds * 1000);
-        console.log(response.data);
         setScreen(response.data);
     };
 
