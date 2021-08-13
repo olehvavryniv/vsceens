@@ -1,13 +1,14 @@
 import MongoClient from 'mongodb';
 import MongoService from './mongo-service.js';
 import dayjs from 'dayjs';
+import { monthToString } from "./dateHelper.js";
 
 class ScreenController {
     constructor(){
         this.dbService = new MongoService();
         this.screens = [
             // { name: 'videos' },
-            // { name: 'awards', durationSeconds: 10, dataCount: 2 },
+            { name: 'awards', durationSeconds: 10, dataCount: 2, headerTitle: () => 'Успіхи наших учнів' },
             { name: 'calendar_events', durationSeconds: 10, dataSelector: (collection) => {
                 return collection.find({
                     'date': {
@@ -15,8 +16,8 @@ class ScreenController {
                         $lte: dayjs().add(9, 'day').format('YYYY-MM-DD')
                     }
                 })
-            }},
-            { name: 'notifications', durationSeconds: 5, dataCount: 3 },
+            }, headerTitle: () => monthToString(dayjs().month()) + ' ' + dayjs().year()},
+            { name: 'notifications', durationSeconds: 5, dataCount: 3, headerTitle: () => 'Дошка оголошень  ' },
         ];
         this.currentScreenIndex = -1;
         this.screenDataIndexes = {};
@@ -50,6 +51,8 @@ class ScreenController {
             if (screen.durationSeconds == undefined) {
                 screen.durationSeconds = screen.data.durationSeconds;
             }
+
+            screen.header = screen.headerTitle();
     
             return screen;
         }

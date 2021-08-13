@@ -1,10 +1,10 @@
 function Announcement({data}) {
     return(
         <div className='announcement-block'>
-            { data.map((item) => {
+            { data.map((item, id) => {
                 const className = "dot " + (item.priority ? 'red' : 'blue');
                 return(
-                    <div className='announcement'>
+                    <div className='announcement' key={id}>
                         <div className={className}></div>
                         <div className='text'>{ item.text }</div>
                     </div>

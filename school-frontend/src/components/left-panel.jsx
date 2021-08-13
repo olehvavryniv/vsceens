@@ -1,17 +1,13 @@
 import Logo from '../images/logo.png';
-import Schedule from './schedule';
+import Schedules from './schedules';
 
 function LeftPanel(props) {
     return(
         <div className='left-panel'>
             <div className='logo-wrapper'>
-                <img src={Logo}/>
+                <img src={Logo} alt=''/>
             </div>
-            <div className='schedules-wrapper'>
-                <Schedule/>
-                <Schedule/>
-                <Schedule/>
-            </div>
+            <Schedules/>
         </div>
     );
 }

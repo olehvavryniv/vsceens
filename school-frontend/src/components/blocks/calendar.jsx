@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
-import weekDayToString from "../../helpers/dateHelper";
+import { weekDayToString } from "../../helpers/dateHelper";
 
 function Calendar({data}) {
     const weekInfo = [

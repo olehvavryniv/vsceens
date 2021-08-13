@@ -14,7 +14,7 @@ function TopBar() {
                 </div>
             </div>
             <div className="top-bar-item">
-                <img src={Logo}></img>
+                <img src={Logo} alt=''></img>
             </div>
         </div>
     );

@@ -38,7 +38,6 @@ class DbUpdater {
                     await dbCollection.insertMany(data);
                 }
             }
-            console.log("DB updated");
         } catch (error) {
             console.log("DB update error", error.code);
             console.log(error);

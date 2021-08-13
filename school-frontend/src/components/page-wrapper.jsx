@@ -4,14 +4,13 @@ import Calendar from './blocks/calendar';
 import Announcement from './blocks/announcement';
 import Axios from 'axios';
 import Header from './header';
-
-const nextScreenUrl = 'http://localhost:3001/next-screen';
+import urls from '../helpers/urls';
 
 function PageWrapper() {
     const [screen, setScreen] = useState(null);
 
     const getNextScreen = async () => {
-        const response = await Axios.get(nextScreenUrl);
+        const response = await Axios.get(urls().nextScreenUrl);
         setTimeout(() => { getNextScreen() }, response.data.durationSeconds * 1000);
         setScreen(response.data);
     };
@@ -40,7 +39,7 @@ function PageWrapper() {
 
     return (
         <div className='main-panel'>
-            <Header data={screen}/>
+            <Header screen={screen}/>
             <div className='screen-wrapper'>
                 { selectScreen(screen) }
             </div>
