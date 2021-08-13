@@ -33,8 +33,18 @@ function ScheduleItem({ scheduleName }) {
 
     if (info?.notStarted){
         return (
+            // <div className='schedule-item'>
+            //     <div className='name'>Не розпочато</div>
+            // </div>
             <div className='schedule-item'>
-                <div className='name'>Не розпочато</div>
+                <div className='name'>{ scheduleName }</div>
+                <div className='time'>- - : - -</div>
+                <div>
+                    <div className={ 'dot orange' }></div>
+                    <span className='lesson-name'>
+                        Завершено
+                    </span>
+                </div>
             </div>
         );
     } else if (info) {

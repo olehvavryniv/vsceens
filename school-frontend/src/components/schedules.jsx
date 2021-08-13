@@ -17,7 +17,7 @@ function Schedules(props) {
     return (
         <>
             <div className='schedules-wrapper'>
-                { scheduleNames.map(schedule => <ScheduleItem scheduleName={schedule}/>) }
+                { scheduleNames.map((schedule, id) => <ScheduleItem scheduleName={schedule} key={id}/>) }
             </div>
         </>
     );

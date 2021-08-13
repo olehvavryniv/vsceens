@@ -15,10 +15,12 @@ function Header({ screen }) {
         <div className='heading'>
           { screen?.header }
         </div>
-        <div className='clock-wrapper'>
-            <div className='time'>{ time.format("HH:mm") }</div>
-            <div className='date'>{ time.date() + ' ' + monthToString(time.month()) }</div>
-        </div>
+            <div className='clock-wrapper'>
+              <div className='time'>{ time.format("HH:mm") }</div>
+              { screen?.name !== 'calendar_events' && 
+                <div className='date'>{ time.date() + ' ' + monthToString(time.month()) }</div>
+              }
+            </div>
       </div>
   );
 }

@@ -7,7 +7,7 @@ class ScreenController {
     constructor(){
         this.dbService = new MongoService();
         this.screens = [
-            // { name: 'videos' },
+            { name: 'videos', dataCount:1, headerTitle: data => data[0].name },
             { name: 'awards', durationSeconds: 10, dataCount: 2, headerTitle: () => 'Успіхи наших учнів' },
             { name: 'calendar_events', durationSeconds: 10, dataSelector: (collection) => {
                 return collection.find({
@@ -17,10 +17,11 @@ class ScreenController {
                     }
                 })
             }, headerTitle: () => monthToString(dayjs().month()) + ' ' + dayjs().year()},
-            { name: 'notifications', durationSeconds: 5, dataCount: 3, headerTitle: () => 'Дошка оголошень  ' },
+            { name: 'notifications', durationSeconds: 10, dataCount: 3, headerTitle: () => 'Дошка оголошень' },
         ];
         this.currentScreenIndex = -1;
         this.screenDataIndexes = {};
+        this.videoCooldown
     }
 
     async nextScreen() {
@@ -49,10 +50,10 @@ class ScreenController {
 
             screen.data = screenData;
             if (screen.durationSeconds == undefined) {
-                screen.durationSeconds = screen.data.durationSeconds;
+                screen.durationSeconds = screenData[0].durationSeconds;;
             }
 
-            screen.header = screen.headerTitle();
+            screen.header = screen.headerTitle(screenData);
     
             return screen;
         }

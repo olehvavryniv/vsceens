@@ -4,6 +4,7 @@ import Calendar from './blocks/calendar';
 import Announcement from './blocks/announcement';
 import Axios from 'axios';
 import Header from './header';
+import Video from './blocks/video';
 import urls from '../helpers/urls';
 
 function PageWrapper() {
@@ -30,8 +31,8 @@ function PageWrapper() {
             return <Calendar data={screenInfo.data}/>;
         } else if (screenInfo.name === 'notifications') {
             return <Announcement data={screenInfo.data}/>
-        // } else if (screenInfo.name === 'videos') {
-        //     return <Video data={screenInfo.data}/>
+        } else if (screenInfo.name === 'videos') {
+            return <Video data={screenInfo.data}/>
         } else {
             return <div>Wrong screen</div>;
         }

@@ -1,4 +1,4 @@
- import YouTube from 'react-youtube';
+import YouTube from 'react-youtube';
 
 function VideoBlock(props) {
     const opts = {
