@@ -1,6 +1,7 @@
 export default function urls() {
+    const domain = process.env.REACT_APP_BACKEND_DOMAIN || 'http://localhost:3001';
     return {
-        schedulesInfoUrl: 'http://localhost:3001/get-schedules',
-        nextScreenUrl: 'http://localhost:3001/next-screen'
+        schedulesInfoUrl: domain + '/get-schedules',
+        nextScreenUrl: domain + '/next-screen'
     };
 }

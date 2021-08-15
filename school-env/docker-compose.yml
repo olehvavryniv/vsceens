@@ -3,28 +3,29 @@ services:
         image: mongo
         restart: always
         environment:
-            MONGO_INITDB_ROOT_USERNAME: admin
-            MONGO_INITDB_ROOT_PASSWORD: password
+            MONGO_INITDB_ROOT_USERNAME: mongoadmin
+            MONGO_INITDB_ROOT_PASSWORD: mongopassword
         ports:
             - 27017:27017
-    mongo-express:
-        image: mongo-express
+    backend:
+        image: ghcr.io/olehvavryniv/vscreens-school-backend
         restart: always
-        ports:
-            - 8081:8081
         environment:
-            ME_CONFIG_MONGODB_ADMINUSERNAME: admin
-            ME_CONFIG_MONGODB_ADMINPASSWORD: password
-            ME_CONFIG_MONGODB_URL: mongodb://admin:password@mongo:27017/
+            MONGO_URL: mongodb://mongoadmin:mongopassword@mongo:27017
+            PORT: 3001
+            VSCREEN_URL: http://vscreen.org.ua
+            # VSCREEN_URL: http://host.docker.internal:3000
+            MONGO_DB_NAME: schoolDB
+            SCREEN_ID: ${SCREEN_ID}
+            SCREEN_TOKEN: ${SCREEN_TOKEN}
+        ports:
+            - 3001:3001
         depends_on:
             - mongo
-    # backend:
-    #     build: ../school-backend/.
-    #     environment:
-    #         MONGO_URL: "mongodb://localhost:27017/"
-    #         PORT: 3001
-    #         VSCREEN_URL: "http://localhost:3000"
-    #         SCREEN_ID: 1
-    #         MONGO_DB_NAME: "mainDB"
-    #         SCREEN_TOKEN: "A6BBUGhDEvbybKQ52hR7jQn4"
-
+    frontend:
+        image: ghcr.io/olehvavryniv/vscreens-school-frontend:${ORGANIZATION_NAME}
+        restart: always
+        ports:
+            - 80:80
+        depends_on:
+            - backend

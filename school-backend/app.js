@@ -36,7 +36,7 @@ app.get('/get-schedules', async (req, res) => {
   return res.send(schedulesController.getSchedules());
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log(`VSCREEN app listening at http://localhost:${process.env.PORT}`)
 });
 

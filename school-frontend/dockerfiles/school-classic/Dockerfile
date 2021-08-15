@@ -3,7 +3,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 COPY . .
-COPY ./dockerfiles/school28/logo.png ./src/images/
+COPY ./dockerfiles/school-classic/logo.png ./src/images/
 RUN npm run-script build
 
 FROM arm32v7/nginx
