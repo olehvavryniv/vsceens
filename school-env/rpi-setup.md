@@ -25,3 +25,8 @@ export SCREEN_TOKEN=
 export ORGANIZATION_NAME=
 
 Reboot
+
+Download docker-compose file
+mkdir vscreen
+curl https://olehvavryniv.github.io/vsceens/school-env/docker-compose.yml --output ~/vscreen/docker-compose.yml
+
