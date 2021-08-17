@@ -13,6 +13,9 @@ sudo apt install python3-dev
 sudo apt-get install -y python3 python3-pip
 sudo pip3 install docker-compose
 
+Install unclutter
+sudo apt-get install unclutter
+
 Login to gtcr.io with token
 Look for a token on MacBookPro home directory.
 docker login ghcr.io -u olehvavryniv
@@ -32,6 +35,7 @@ curl https://olehvavryniv.github.io/vsceens/school-env/docker-compose.yml --outp
 Setup autorun
 sudo pico /etc/xdg/lxsession/LXDE-pi/autostart
 Add to file:
+@unclutter -idle 0
 until [ "`docker inspect -f {{.State.Running}} vscreen_frontend_1`"=="true" ]; do
     sleep 1;
 done;

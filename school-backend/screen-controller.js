@@ -8,8 +8,8 @@ class ScreenController {
         this.dbService = new MongoService();
         this.screens = [
             { name: 'videos', dataCount:1, headerTitle: data => data[0].name },
-            { name: 'awards', durationSeconds: 10, dataCount: 2, headerTitle: () => 'Успіхи наших учнів' },
-            { name: 'calendar_events', durationSeconds: 10, dataSelector: (collection) => {
+            { name: 'awards', durationSeconds: 20, dataCount: 2, headerTitle: () => 'Успіхи наших учнів' },
+            { name: 'calendar_events', durationSeconds: 20, dataSelector: (collection) => {
                 return collection.find({
                     'date': {
                         $gte: dayjs().format('YYYY-MM-DD'),
@@ -17,14 +17,17 @@ class ScreenController {
                     }
                 })
             }, headerTitle: () => monthToString(dayjs().month()) + ' ' + dayjs().year()},
-            { name: 'notifications', durationSeconds: 10, dataCount: 3, headerTitle: () => 'Дошка оголошень' },
+            { name: 'notifications', durationSeconds: 20, dataCount: 3, headerTitle: () => 'Дошка оголошень' },
         ];
         this.currentScreenIndex = -1;
         this.screenDataIndexes = {};
-        this.videoCooldown
+        this.lastVideoShowTime = dayjs().subtract(1, 'day');
+        this.allDataCount = -1;
     }
 
     async nextScreen() {
+        const allDataCount = await this.getAllDataCount();
+        const videoCooldown = allDataCount > 1 ? 2 : 0;
         for (let i = 0; i < this.screens.length; i++) {
             this.currentScreenIndex++;
             if (this.currentScreenIndex > this.screens.length - 1){
@@ -35,6 +38,13 @@ class ScreenController {
             const dataCount = await this.dbService.count(screen.name);
             if (dataCount == 0) {
                 continue;
+            }
+
+            if (screen.name === 'videos' && videoCooldown > 0) {
+                const diff = dayjs().diff(this.lastVideoShowTime, 'minute', true);
+                if (diff < videoCooldown) {
+                    continue;
+                }
             }
 
             let screenData = [];
@@ -50,7 +60,7 @@ class ScreenController {
 
             screen.data = screenData;
             if (screen.durationSeconds == undefined) {
-                screen.durationSeconds = screenData[0].durationSeconds;;
+                screen.durationSeconds = screenData[0].durationSeconds;
             }
 
             screen.header = screen.headerTitle(screenData);
@@ -70,6 +80,19 @@ class ScreenController {
         this.screenDataIndexes[dataType] = index;
 
         return index;
+    }
+
+    async getAllDataCount() {
+        const result = 0;
+        for (let i = 0; i < this.screens.length; i++) {
+            const screenName = this.screens[i].name;
+            if (screenName === 'videos') {
+                continue;
+            }
+            result += await this.dbService.count(screenName);
+        }
+
+        return result;
     }
 }
 

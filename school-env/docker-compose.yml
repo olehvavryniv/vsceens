@@ -9,7 +9,6 @@ services:
             - 27017:27017
     backend:
         image: ghcr.io/olehvavryniv/vscreens-school-backend
-        restart: always
         environment:
             MONGO_URL: mongodb://mongoadmin:mongopassword@mongo:27017
             PORT: 3001
@@ -24,7 +23,6 @@ services:
             - mongo
     frontend:
         image: ghcr.io/olehvavryniv/vscreens-school-frontend:${ORGANIZATION_NAME}
-        restart: always
         ports:
             - 80:80
         depends_on:
