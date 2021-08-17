@@ -28,6 +28,7 @@ class ScreenController {
     async nextScreen() {
         const allDataCount = await this.getAllDataCount();
         const videoCooldown = allDataCount > 1 ? 2 : 0;
+    
         for (let i = 0; i < this.screens.length; i++) {
             this.currentScreenIndex++;
             if (this.currentScreenIndex > this.screens.length - 1){
@@ -40,6 +41,7 @@ class ScreenController {
                 continue;
             }
 
+        
             if (screen.name === 'videos' && videoCooldown > 0) {
                 const diff = dayjs().diff(this.lastVideoShowTime, 'minute', true);
                 if (diff < videoCooldown) {
@@ -60,11 +62,14 @@ class ScreenController {
 
             screen.data = screenData;
             if (screen.durationSeconds == undefined) {
-                screen.durationSeconds = screenData[0].durationSeconds;
+                screen.durationSeconds = screenData[0].durationSeconds + 3;
             }
 
             screen.header = screen.headerTitle(screenData);
     
+            if (screen.name === 'videos'){
+                this.lastVideoShowTime = dayjs();
+            }
             return screen;
         }
 
@@ -83,13 +88,16 @@ class ScreenController {
     }
 
     async getAllDataCount() {
-        const result = 0;
+        let result = 0;
         for (let i = 0; i < this.screens.length; i++) {
             const screenName = this.screens[i].name;
             if (screenName === 'videos') {
                 continue;
             }
-            result += await this.dbService.count(screenName);
+            const count = await this.dbService.count(screenName);
+            if (count > 0){
+                result++;
+            }
         }
 
         return result;

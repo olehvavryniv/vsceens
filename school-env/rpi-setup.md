@@ -40,3 +40,18 @@ until [ "`docker inspect -f {{.State.Running}} vscreen_frontend_1`"=="true" ]; d
     sleep 1;
 done;
 /usr/bin/chromium-browser --kiosk --ignore-certificate-errors --disable-restore-session-state --autoplay-policy=no-user-gesture-required http://localhost
+
+
+
+
+/home/pi/vscreen/start.sh
+
+until [ "`docker inspect -f {{.State.Running}} vscreen_frontend_1`"=="true" ]; do
+    sleep 1;
+done;
+curl https://olehvavryniv.github.io/vsceens/school-env/docker-compose.yml --output ~/vscreen/docker-compose.yml
+
+docker-compose -f ~/vscreen/docker-compose.yml pull
+docker-compose -f ~/vscreen/docker-compose.yml up -d
+
+/usr/bin/chromium-browser --kiosk --ignore-certificate-errors --disable-restore-session-state --autoplay-policy=no-user-gesture-required http://localhost
