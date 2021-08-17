@@ -36,22 +36,27 @@ Setup autorun
 sudo pico /etc/xdg/lxsession/LXDE-pi/autostart
 Add to file:
 @unclutter -idle 0
-until [ "`docker inspect -f {{.State.Running}} vscreen_frontend_1`"=="true" ]; do
-    sleep 1;
-done;
-/usr/bin/chromium-browser --kiosk --ignore-certificate-errors --disable-restore-session-state --autoplay-policy=no-user-gesture-required http://localhost
-
-
-
-
 /home/pi/vscreen/start.sh
 
-until [ "`docker inspect -f {{.State.Running}} vscreen_frontend_1`"=="true" ]; do
-    sleep 1;
-done;
-curl https://olehvavryniv.github.io/vsceens/school-env/docker-compose.yml --output ~/vscreen/docker-compose.yml
+
+Create file:
+/home/pi/vscreen/start.sh
+with:
+
+curl https://olehvavryniv.github.io/vsceens/school-env/docker-compose.yml --output /home/pi/vscreen/docker-compose.yml
 
 docker-compose -f ~/vscreen/docker-compose.yml pull
 docker-compose -f ~/vscreen/docker-compose.yml up -d
 
-/usr/bin/chromium-browser --kiosk --ignore-certificate-errors --disable-restore-session-state --autoplay-policy=no-user-gesture-required http://localhost
+until [ "`docker inspect -f {{.State.Running}} vscreen_frontend_1`"=="true" ]; do
+    sleep 1;
+done;
+
+/usr/bin/chromium-browser --kiosk --ignore-certificate-errors --disable-restore-session-state --disk-cache-dir=/dev/null --autoplay-policy=no-user-gesture-required http://localhost
+
+
+
+Setup reboot
+sudo crontab -e
+and add to file
+@midnight /sbin/shutdown -r now

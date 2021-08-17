@@ -17,6 +17,7 @@ services:
             MONGO_DB_NAME: schoolDB
             SCREEN_ID: ${SCREEN_ID}
             SCREEN_TOKEN: ${SCREEN_TOKEN}
+            TZ: Europe/Kiev
         ports:
             - 3001:3001
         depends_on:
