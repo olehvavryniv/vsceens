@@ -1,6 +1,15 @@
 Check temp:
 vcgencmd measure_temp
 
+Settings:
+sudo raspi-config
+
+Display
+DMT mode 82
+https://pimylifeup.com/raspberry-pi-screen-resolution/
+https://www.raspberrypi.org/documentation/computers/configuration.html#hdmi-configuration
+
+
 Install Docker
 https://phoenixnap.com/kb/docker-on-raspberry-pi
 sudo systemctl enable docker
@@ -26,7 +35,6 @@ Add to end of file
 export SCREEN_ID=
 export SCREEN_TOKEN=
 export ORGANIZATION_NAME=
-Reboot
 
 Download docker-compose file
 mkdir vscreen
@@ -41,9 +49,12 @@ Add to file:
 
 Create file:
 /home/pi/vscreen/start.sh
+CHMOD to 777!
 with:
 
 curl https://olehvavryniv.github.io/vsceens/school-env/docker-compose.yml --output /home/pi/vscreen/docker-compose.yml
+
+docker run -ti --rm apcheamitru/arm32v7-mongo:latest mongod --repair
 
 docker-compose -f ~/vscreen/docker-compose.yml pull
 docker-compose -f ~/vscreen/docker-compose.yml up -d
