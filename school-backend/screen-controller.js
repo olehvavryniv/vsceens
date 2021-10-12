@@ -7,7 +7,7 @@ class ScreenController {
     constructor(){
         this.dbService = new MongoService();
         this.screens = [
-            { name: 'videos', dataCount:1, headerTitle: data => data[0].name },
+            { name: 'videos', dataCount: 1, headerTitle: data => data[0].name },
             { name: 'awards', durationSeconds: 20, dataCount: 2, headerTitle: () => 'Успіхи наших учнів' },
             { name: 'calendar_events', durationSeconds: 20, dataSelector: (collection) => {
                 return collection.find({
@@ -35,7 +35,7 @@ class ScreenController {
                 this.currentScreenIndex = 0;
             }
     
-            const screen = this.screens[this.currentScreenIndex];
+            const screen = Object.assign({}, this.screens[this.currentScreenIndex]);
             const dataCount = await this.dbService.count(screen.name);
             if (dataCount == 0) {
                 continue;
@@ -70,6 +70,7 @@ class ScreenController {
             if (screen.name === 'videos'){
                 this.lastVideoShowTime = dayjs();
             }
+
             return screen;
         }
 

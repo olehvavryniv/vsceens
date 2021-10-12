@@ -9,6 +9,7 @@ import SchedulesController from './schedules-controller.js';
 import dayjs from 'dayjs';
 import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
+import fs from 'fs';
 
 dotenv.config();
 Axios.defaults.headers.common['Token'] = process.env.SCREEN_TOKEN;
@@ -51,7 +52,23 @@ async function Init() {
   await schedulesController.loadSchedules();
 
   setInterval(() => updateData(), 30000);
+  setInterval(() => sendTemp(), 60000);
   console.log("App started.");
+}
+
+function sendTemp() {
+  try {
+    const rawTemp = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp");
+    // const rawTemp = 30000;
+    const temp = rawTemp / 1000;
+
+    const screenId = process.env.SCREEN_ID;
+    const host = process.env.VSCREEN_URL;
+    Axios.post(`${host}/api/${screenId}/temp_logs`, { temp: temp });
+  }
+  catch (e) {
+    console.log(e);
+  }
 }
 
 Init();
