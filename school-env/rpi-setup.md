@@ -16,7 +16,7 @@ sudo systemctl enable docker
 sudo chmod 777 /var/run/docker.sock
 sudo systemctl docker restart
 
-Install coker-compose
+Install doker-compose
 sudo apt-get install libffi-dev libssl-dev
 sudo apt install python3-dev
 sudo apt-get install -y python3 python3-pip
@@ -54,7 +54,7 @@ with:
 
 curl https://olehvavryniv.github.io/vsceens/school-env/docker-compose.yml --output /home/pi/vscreen/docker-compose.yml
 
-docker run -ti --rm apcheamitru/arm32v7-mongo:latest mongod --repair
+sudo rm -f ~/vscreen/data/mongod.lock
 
 docker-compose -f ~/vscreen/docker-compose.yml pull
 docker-compose -f ~/vscreen/docker-compose.yml up -d
