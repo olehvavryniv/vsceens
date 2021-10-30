@@ -1,0 +1,33 @@
+services:
+    mongo:
+        image: apcheamitru/arm32v7-mongo:latest
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: mongoadmin
+            MONGO_INITDB_ROOT_PASSWORD: mongopassword
+        ports:
+            - 27017:27017
+        volumes:
+            - ./data:/data/db
+    backend:
+        image: ghcr.io/olehvavryniv/vscreens-medical-backend:latest
+        environment:
+            MONGO_URL: mongodb://mongoadmin:mongopassword@mongo:27017
+            PORT: 3001
+            VSCREEN_URL: http://vscreen.org.ua
+            MONGO_DB_NAME: schoolDB
+            SCREEN_ID: ${SCREEN_ID}
+            SCREEN_TOKEN: ${SCREEN_TOKEN}
+            TZ: Europe/Kiev
+        ports:
+            - 3001:3001
+        depends_on:
+            - mongo
+        restart: always
+    frontend:
+        image: ghcr.io/olehvavryniv/vscreens-medical-frontend:latest
+        ports:
+            - 80:80
+        depends_on:
+            - backend
+        restart: always
