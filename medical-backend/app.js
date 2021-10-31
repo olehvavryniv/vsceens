@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import DbUpdater from './db-updater.js';
 import MongoService from './mongo-service.js';
 import Axios from 'axios';
+import fs from 'fs';
 
 dotenv.config();
 Axios.defaults.headers.common['Token'] = process.env.SCREEN_TOKEN;
