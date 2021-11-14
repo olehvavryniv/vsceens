@@ -20,7 +20,7 @@ class ScreenController {
                 this.currentScreenIndex = 0;
             }
     
-            const screen = this.screens[this.currentScreenIndex];
+            const screen = Object.assign({}, this.screens[this.currentScreenIndex]);
             const dataCount = await this.dbService.count(screen.name);
             if (dataCount == 0) {
                 continue;

@@ -102,6 +102,8 @@ sleep 10
 
 
 
+On TinkerBoard
+timedatectl set-ntp false
 
 
 Setup reboot
