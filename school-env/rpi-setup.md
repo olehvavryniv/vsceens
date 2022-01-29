@@ -1,5 +1,7 @@
 Check temp:
 vcgencmd measure_temp
+OR
+cat /sys/class/thermal/thermal_zone1/temp
 
 Settings:
 sudo raspi-config
@@ -8,6 +10,8 @@ Display
 DMT mode 82
 https://pimylifeup.com/raspberry-pi-screen-resolution/
 https://www.raspberrypi.org/documentation/computers/configuration.html#hdmi-configuration
+hdmi_group=2
+hdmi_mode=82
 
 
 Install Docker
@@ -15,12 +19,19 @@ https://phoenixnap.com/kb/docker-on-raspberry-pi
 sudo systemctl enable docker
 sudo chmod 777 /var/run/docker.sock
 sudo systemctl docker restart
+OR
+sudo systemctl restart docker
 
 Install doker-compose
 sudo apt-get install libffi-dev libssl-dev
 sudo apt install python3-dev
 sudo apt-get install -y python3 python3-pip
+sudo pip3 install setuptools wheel
 sudo pip3 install docker-compose
+OR
+sudo pip3 install "docker-compose<1.28"
+OR
+sudo apt-get install docker-compose
 
 Install unclutter
 sudo apt-get install unclutter
