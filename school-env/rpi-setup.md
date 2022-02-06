@@ -5,6 +5,9 @@ cat /sys/class/thermal/thermal_zone1/temp
 
 Settings:
 sudo raspi-config
+OR
+wget https://raw.githubusercontent.com/mikerr/tinker-config/master/tinker-config
+sudo sh tinker-config
 
 Display
 DMT mode 82
@@ -12,6 +15,9 @@ https://pimylifeup.com/raspberry-pi-screen-resolution/
 https://www.raspberrypi.org/documentation/computers/configuration.html#hdmi-configuration
 hdmi_group=2
 hdmi_mode=82
+
+TinkerBoard
+DISPLAY=:0.0 xrandr --output "HDMI-1" --mode "1920x1080"
 
 
 Install Docker
@@ -35,6 +41,7 @@ sudo apt-get install docker-compose
 
 Install unclutter
 sudo apt-get install unclutter
+sudo apt-get install ntpdate
 
 Login to gtcr.io with token
 Look for a token on MacBookPro home directory.
@@ -114,10 +121,11 @@ sleep 10
 
 
 On TinkerBoard
-timedatectl set-ntp false
+edit and set HDMI
+sudo pico /etc/audio/audio.conf
 
 
 Setup reboot
 sudo crontab -e
 and add to file
-@midnight /sbin/shutdown -r now
+@midnight sudo reboot now

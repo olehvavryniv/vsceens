@@ -36,7 +36,7 @@ class DbUpdater {
                 }
             }   
         } catch (error) {
-            console.log("DB update error", error.code);
+            console.log("DB update error", error);
         }
     }
 }
