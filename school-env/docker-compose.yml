@@ -8,7 +8,7 @@ services:
         ports:
             - 27017:27017
         volumes:
-            - ./data:/data/db
+            - ~/vscreen/data:/data/db
     backend:
         image: ghcr.io/olehvavryniv/vscreens-school-backend
         environment:
