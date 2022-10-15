@@ -1,3 +1,4 @@
+version: "2"
 services:
     mongo:
         image: apcheamitru/arm32v7-mongo:latest
