@@ -31,4 +31,6 @@ services:
             - 80:80
         depends_on:
             - backend
+        volumes:
+            - ~/vscreen/logo.png:/usr/share/nginx/html/logo.png
         restart: always
