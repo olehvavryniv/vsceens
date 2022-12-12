@@ -18,6 +18,16 @@ class ScreenController {
                 })
             }, headerTitle: () => monthToString(dayjs().month()) + ' ' + dayjs().year()},
             { name: 'notifications', durationSeconds: 20, dataCount: 3, headerTitle: () => 'Дошка оголошень' },
+            { 
+                name: 'school_birthdays', 
+                durationSeconds: 20, 
+                headerTitle: () => 'Вітаємо з Днем народження!', 
+                dataSelector: this.getBirthdaysData, 
+                dataCounter: async (collection) => {
+                    const today = new Date();
+                    return await collection.find({ "birthdayDay": today.getDate(), "birthdayMonth": today.getMonth() + 1 }).count();
+                }
+            }
         ];
         this.currentScreenIndex = -1;
         this.screenDataIndexes = {};
@@ -30,18 +40,28 @@ class ScreenController {
         const videoCooldown = allDataCount > 1 ? 2 : 0;
     
         for (let i = 0; i < this.screens.length; i++) {
+            //increment screen index
             this.currentScreenIndex++;
             if (this.currentScreenIndex > this.screens.length - 1){
                 this.currentScreenIndex = 0;
             }
     
+            //clone screen params
             const screen = Object.assign({}, this.screens[this.currentScreenIndex]);
-            const dataCount = await this.dbService.count(screen.name);
+            
+            //check if data exists
+            let dataCount = 0;
+            if (screen.dataCounter) {
+                dataCount = await screen.dataCounter(this.dbService.collection(screen.name));
+            } else {
+                dataCount = await this.dbService.count(screen.name);
+            }
+            
             if (dataCount == 0) {
                 continue;
             }
 
-        
+            //process videos cooldown
             if (screen.name === 'videos' && videoCooldown > 0) {
                 const diff = dayjs().diff(this.lastVideoShowTime, 'minute', true);
                 if (diff < videoCooldown) {
@@ -49,17 +69,24 @@ class ScreenController {
                 }
             }
 
+            //get screen data
             let screenData = [];
             if (screen.dataSelector){
-                screenData = await screen.dataSelector(this.dbService.collection(screen.name)).toArray();
+                const dataSelector = screen.dataSelector.bind(this);
+                screenData = await dataSelector(this.dbService.collection(screen.name), screen.name, dataCount).toArray();
             } else {
-                screenData = await this.dbService.getNext(screen.name, this.getScreenDataIndex(screen.name, dataCount, screen.dataCount), screen.dataCount);
+                screenData = await this.dbService.getNext(
+                        screen.name,
+                        this.getScreenDataIndex(screen.name, dataCount, screen.dataCount),
+                        screen.dataCount
+                    );
             }
 
             if (screenData.length == 0) {
                 continue;
             }
 
+            // set screen duration
             screen.data = screenData;
             if (screen.durationSeconds == undefined) {
                 screen.durationSeconds = screenData[0].durationSeconds + 3;
@@ -102,6 +129,14 @@ class ScreenController {
         }
 
         return result;
+    }
+
+    getBirthdaysData(collection, screenName, dataCount) {
+        const today = new Date();
+        return collection
+            .find({ "birthdayDay": today.getDate(), "birthdayMonth": today.getMonth() + 1 })
+            .skip(this.getScreenDataIndex(screenName, dataCount, 4))
+            .limit(4)
     }
 }
 

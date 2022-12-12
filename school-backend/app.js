@@ -72,3 +72,6 @@ function sendTemp() {
 }
 
 Init();
+
+// const dbService = new MongoService();
+// dbService.collection('')

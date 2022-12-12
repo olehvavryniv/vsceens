@@ -6,6 +6,7 @@ import Axios from 'axios';
 import Header from './header';
 import Video from './blocks/video';
 import urls from '../helpers/urls';
+import Birthdays from './blocks/birthdays';
 
 function PageWrapper() {
     const [screen, setScreen] = useState(null);
@@ -33,6 +34,8 @@ function PageWrapper() {
             return <Announcement data={screenInfo.data}/>
         } else if (screenInfo.name === 'videos') {
             return <Video data={screenInfo.data}/>
+        } else if (screenInfo.name === 'school_birthdays') {
+            return <Birthdays data={screenInfo.data}/>
         } else {
             return <div>Wrong screen</div>;
         }

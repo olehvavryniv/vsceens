@@ -17,8 +17,8 @@ class MongoService {
         return this.DB.collection(collectionName);
     }
 
-    async getNext(collectionName, offset, limit = 1) {
-        return await this.collection(collectionName).find().skip(offset).limit(limit).toArray();
+    async getNext(collectionName, offset, limit = 1, findObj = {}) {
+        return await this.collection(collectionName).find(findObj).skip(offset).limit(limit).toArray();
     }
 
     async count(collectionName) {

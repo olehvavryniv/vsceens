@@ -1,25 +1,18 @@
 import image from '../../images/image1.png';
 
-function Birthdays(props) {
+function Birthdays({ data }) {
     return (
         <div className='birthdays-block'>
             <div className='birthdays'>
-                <div className='birthday-item'>
-                    <div className='name'>Журавльва Олександра</div>
-                    <div className='label'>вчителька англійської мови</div>
-                </div>
-                <div className='birthday-item'>
-                    <div className='name'>Журавльва Олександра</div>
-                    <div className='label'>вчителька англійської мови</div>
-                </div>
-                <div className='birthday-item'>
-                    <div className='name'>Журавльва Олександра</div>
-                    <div className='label'>вчителька англійської мови</div>
-                </div>
-                <div className='birthday-item'>
-                    <div className='name'>Журавльва Олександра</div>
-                    <div className='label'>вчителька англійської мови</div>
-                </div>
+                { data.map((item) => {
+                    return (
+                        <div className='birthday-item'>
+                            <div className='name'>{ item.name }</div>
+                            <div className='label'>{ item.title }</div>
+                        </div>
+                    )
+                }) 
+                }
             </div>
             <div className='famous-birthday'>
                 <div className='photo'>

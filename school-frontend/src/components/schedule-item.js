@@ -1,24 +1,33 @@
 import Axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import urls from '../helpers/urls';
 
 function ScheduleItem({ scheduleName }) {
     const [info, setInfo] = useState(null);
+    const timerId = useRef(0);
+    const timeoutId = useRef(0);
     const [secondsLeft, setSecondsLeft] = useState(0);
 
     useEffect(() => { 
         init();
+
+        return cleanup;
     }, []);
 
     const init = async () => {
         await loadInfo();
-        setInterval(() => { processTime() }, 1000);
+        timerId.current = setInterval(() => { processTime() }, 1000);
+    };
+
+    const cleanup = () => {
+        clearInterval(timerId.current);
+        clearTimeout(timeoutId.current);
     };
 
     const loadInfo = async () => {
         const responce = await Axios.get(urls().schedulesInfoUrl);
         const data = responce.data.find(s => s.scheduleName === scheduleName);
-        setTimeout(loadInfo, (data.secondsLeft || 1) * 1000);
+        timeoutId.current = setTimeout(loadInfo, (data.secondsLeft || 5) * 1000);
         setInfo(data);
         setSecondsLeft(data.secondsLeft);
     };
