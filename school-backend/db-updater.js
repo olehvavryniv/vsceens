@@ -13,7 +13,8 @@ class DbUpdater {
             { url: `${host}/api/${screenId}/calendar_events`, name: 'calendar_events' },
             { url: `${host}/api/${screenId}/notifications`, name: 'notifications' },
             { url: `${host}/api/${screenId}/school_schedules`, name: 'school_schedules' },
-            { url: `${host}/api/${screenId}/school_birthdays`, name: 'school_birthdays' }
+            { url: `${host}/api/${screenId}/school_birthdays`, name: 'school_birthdays' },
+            { url: `${host}/api/${screenId}/organization`, name: 'organization' }
         ];
     }
 

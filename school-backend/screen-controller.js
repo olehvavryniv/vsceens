@@ -17,7 +17,7 @@ class ScreenController {
                     }
                 })
             }, headerTitle: () => monthToString(dayjs().month()) + ' ' + dayjs().year()},
-            { name: 'notifications', durationSeconds: 20, dataCount: 3, headerTitle: () => 'Дошка оголошень' },
+            { name: 'notifications', durationSeconds: 20, dataCount: 2, headerTitle: () => 'Дошка оголошень' },
             { 
                 name: 'school_birthdays', 
                 durationSeconds: 20, 
@@ -36,8 +36,7 @@ class ScreenController {
     }
 
     async nextScreen() {
-        const allDataCount = await this.getAllDataCount();
-        const videoCooldown = allDataCount > 1 ? 2 : 0;
+        const videoCooldown = this.getVideoCooldown();
     
         for (let i = 0; i < this.screens.length; i++) {
             //increment screen index
@@ -63,7 +62,7 @@ class ScreenController {
 
             //process videos cooldown
             if (screen.name === 'videos' && videoCooldown > 0) {
-                const diff = dayjs().diff(this.lastVideoShowTime, 'minute', true);
+                const diff = dayjs().diff(this.lastVideoShowTime, 'second');
                 if (diff < videoCooldown) {
                     continue;
                 }
@@ -102,6 +101,17 @@ class ScreenController {
         }
 
         return null;
+    }
+
+    async getVideoCooldown() {
+        const defaultVideoCooldown = 120;
+        const organization = await this.dbService.getOrganization();
+        if (organization) {
+            return organization;
+        } else {
+            const dataCount = await this.getAllDataCount();
+            return dataCount == 0 ? 0 : defaultVideoCooldown;
+        }
     }
 
     getScreenDataIndex(dataType, dataCount, screenDataCount) {

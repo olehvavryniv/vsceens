@@ -14,7 +14,7 @@ function Birthdays({ data }) {
                 }) 
                 }
             </div>
-            <div className='famous-birthday'>
+            {/* <div className='famous-birthday'>
                 <div className='photo'>
                     <img src={image}></img>
                 </div>
@@ -23,7 +23,7 @@ function Birthdays({ data }) {
                     <div className='name'>Крип’якевич Іван Петрович</div>
                     <div className='description'>український історик, академік, професор, письменник і кльовий чувак</div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }
