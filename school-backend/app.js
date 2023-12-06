@@ -51,8 +51,8 @@ async function Init() {
   await updateData();
   await schedulesController.loadSchedules();
 
-  setInterval(() => updateData(), 30000);
-  setInterval(() => sendTemp(), 60000);
+  setInterval(() => updateData(), 10 * 60 * 1000);
+  setInterval(() => sendTemp(), 1 * 60 * 1000);
   console.log("App started.");
 }
 

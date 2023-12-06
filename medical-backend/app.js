@@ -52,8 +52,8 @@ async function Init() {
   await MongoService.InitConnection();
   await updateData();
 
-  setInterval(() => updateData(), 60000);
-  setInterval(() => sendTemp(), 60000);
+  setInterval(() => updateData(), 30 * 60 * 1000);
+  setInterval(() => sendTemp(), 1 * 60 * 1000);
  
   console.log("App started.");
 }

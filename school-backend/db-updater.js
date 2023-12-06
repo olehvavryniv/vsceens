@@ -7,14 +7,14 @@ class DbUpdater {
         const screenId = process.env.SCREEN_ID;
         const host = process.env.VSCREEN_URL;
         this.dataTypes = [
-            { url: `${host}/api/${screenId}/news`, name: 'news' },
-            { url: `${host}/api/${screenId}/videos`, name: 'videos' },
-            { url: `${host}/api/${screenId}/awards`, name: 'awards' },
-            { url: `${host}/api/${screenId}/calendar_events`, name: 'calendar_events' },
-            { url: `${host}/api/${screenId}/notifications`, name: 'notifications' },
-            { url: `${host}/api/${screenId}/school_schedules`, name: 'school_schedules' },
-            { url: `${host}/api/${screenId}/school_birthdays`, name: 'school_birthdays' },
-            { url: `${host}/api/${screenId}/organization`, name: 'organization' }
+            { url: `${host}/api/${screenId}/news`, name: 'news', paginated: true },
+            { url: `${host}/api/${screenId}/videos`, name: 'videos', paginated: true },
+            { url: `${host}/api/${screenId}/awards`, name: 'awards', paginated: true },
+            { url: `${host}/api/${screenId}/calendar_events`, name: 'calendar_events', paginated: true },
+            { url: `${host}/api/${screenId}/notifications`, name: 'notifications', paginated: true },
+            { url: `${host}/api/${screenId}/school_schedules`, name: 'school_schedules', paginated: true },
+            { url: `${host}/api/${screenId}/school_birthdays`, name: 'school_birthdays', paginated: true },
+            { url: `${host}/api/${screenId}/organization`, name: 'organization', paginated: false }
         ];
     }
 
@@ -32,7 +32,11 @@ class DbUpdater {
                     }
 
                     data = data.concat(responce.data);
-                    page++;
+                    if (dataType.paginated) {
+                        page++;
+                    } else {
+                        break;
+                    }
                 }
                 const dbCollection = dbService.DB.collection(dataType.name);
                 await dbCollection.deleteMany();
