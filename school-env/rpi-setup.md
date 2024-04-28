@@ -41,7 +41,8 @@ sudo apt-get install docker-compose
 
 Install unclutter
 sudo apt-get install unclutter
-sudo apt-get install ntpdate
+OR
+https://forums.raspberrypi.com/viewtopic.php?t=358285#p2175588
 
 Login to gtcr.io with token
 Look for a token on MacBookPro home directory.
@@ -75,8 +76,22 @@ Add to file:
 @unclutter -idle 5
 /home/pi/vscreen/start.sh
 
+New RPI autorun:
+mkdir /home/pi/.config/autostart
+pico /home/pi/.config/autostart/vscreen.desktop
+
+then:
+
+[Desktop Entry]
+Type=Application
+Name=Vscreen
+Exec=/home/pi/vscreen/start.sh
+
+
 TinkerBoard:
 @xterm -e '/home/linaro/vscreen/start.sh'
+
+Copy logo!!!!
 
 
 Create file:
