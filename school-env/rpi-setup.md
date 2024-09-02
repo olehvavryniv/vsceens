@@ -22,6 +22,8 @@ DISPLAY=:0.0 xrandr --output "HDMI-1" --mode "1920x1080"
 
 Install Docker
 https://phoenixnap.com/kb/docker-on-raspberry-pi
+https://docs.docker.com/engine/install/debian/ - for TinkerBoard
+TinkerBoard: in case of docker start problem - try `sudo dockerd` and if it is network problem run `sudo update-alternatives --set iptables /usr/sbin/iptables-legacy`
 sudo systemctl enable docker
 sudo chmod 777 /var/run/docker.sock
 sudo systemctl docker restart
@@ -144,3 +146,20 @@ Setup reboot
 sudo crontab -e
 and add to file
 @midnight sudo reboot now
+
+
+Remove access
+Create file frpc.toml with:
+# frpc.toml
+serverAddr = "46.101.172.113"
+serverPort = 7000
+
+[[proxies]]
+name = "med1"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 22
+remotePort = 6001
+
+Run
+`docker run --restart=always --network host -d -v ~/frpc.toml:/etc/frp/frpc.toml --name frpc snowdreamtech/frpc`
