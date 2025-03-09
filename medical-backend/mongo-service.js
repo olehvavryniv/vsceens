@@ -24,6 +24,15 @@ class MongoService {
     async count(collectionName) {
         return await this.collection(collectionName).countDocuments();
     }
+
+    async getOrganization() {
+        const organizationList = await this.collection('organization').find().toArray();
+        if (organizationList.length > 0) {
+            return organizationList[0];
+        }
+
+        return null;
+    }
 }
 
 export default MongoService;

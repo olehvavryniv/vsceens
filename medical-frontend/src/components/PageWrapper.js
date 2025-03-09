@@ -5,13 +5,21 @@ import DocInfoBlock from './DocInfoBlock';
 import VideoBlock from './VideoBlock';
 
 const nextScreenUrl = 'http://localhost:3001/next-screen';
+const organizationInfoUrl = 'http://localhost:3001/organization-info'
 
 function PageWrapper() {
     const [screen, setScreen] = useState(null);
+    const [organizationInfo, setOrganizationInfo] = useState(null);
+
     const getNextScreen = async () => {
         const response = await Axios.get(nextScreenUrl);
         setTimeout(() => { getNextScreen() }, response.data.durationSeconds * 1000);
         setScreen(response.data);
+    };
+
+    const getOrganizationInfo = async () => {
+        const response = await Axios.get(organizationInfoUrl);
+        setOrganizationInfo(response.data);
     };
 
     useEffect(() => {

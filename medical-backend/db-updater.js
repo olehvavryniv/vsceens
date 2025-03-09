@@ -10,6 +10,7 @@ class DbUpdater {
             { url: `${host}/api/${screenId}/news`, name: 'news' },
             { url: `${host}/api/${screenId}/doctor_infos`, name: 'doctor_infos' },
             { url: `${host}/api/${screenId}/videos`, name: 'videos' },
+            { url: `${host}/api/${screenId}/organization`, name: 'organization' },
         ];
     }
 
