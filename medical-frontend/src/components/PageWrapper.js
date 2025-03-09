@@ -10,20 +10,40 @@ const organizationInfoUrl = 'http://localhost:3001/organization-info'
 function PageWrapper() {
     const [screen, setScreen] = useState(null);
     const [organizationInfo, setOrganizationInfo] = useState(null);
+    const [screenTimerId, setScreenTimerId] = useState(0);
 
     const getNextScreen = async () => {
-        const response = await Axios.get(nextScreenUrl);
-        setTimeout(() => { getNextScreen() }, response.data.durationSeconds * 1000);
-        setScreen(response.data);
+        const screenResponse = await Axios.get(nextScreenUrl);
+        const organizationResponse = await Axios.get(organizationInfoUrl);
+        
+        const timerId = setTimeout(() => { getNextScreen() }, screenResponse.data.durationSeconds * 1000);
+        setOrganizationInfo(organizationResponse.data);
+        setScreenTimerId(timerId);
+        setScreen(screenResponse.data);
     };
 
-    const getOrganizationInfo = async () => {
-        const response = await Axios.get(organizationInfoUrl);
-        setOrganizationInfo(response.data);
+    const checkMinuteOfSilence = () => {
+        if (!organizationInfo.minuteOfSileceEnabled) {
+            return;
+        }
+
+        const currentTime = new Date();
+        const settingsTime = new Date(organizationInfo.minuteOfSilenceTime);
+        if (currentTime.getHours() !== settingsTime.getHours()) {
+            return;
+        }
+        if (currentTime.getMinutes() !== settingsTime.getMinutes()) {
+            return;
+        }
+
+        clearTimeout(screenTimerId);
+        setTimeout(() => { getNextScreen() }, organizationInfo.organizationInfo * 1000);
+        setScreen({ name: 'videos', data: { code: organizationInfo.organizationInfo } })
     };
 
     useEffect(() => {
         getNextScreen();
+        setInterval(checkMinuteOfSilence, 60 * 1000);
     }, []);
 
     const selectScreen = (screenInfo) => {

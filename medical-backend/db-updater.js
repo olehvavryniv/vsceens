@@ -7,10 +7,10 @@ class DbUpdater {
         const screenId = process.env.SCREEN_ID;
         const host = process.env.VSCREEN_URL;
         this.dataTypes = [
-            { url: `${host}/api/${screenId}/news`, name: 'news' },
-            { url: `${host}/api/${screenId}/doctor_infos`, name: 'doctor_infos' },
-            { url: `${host}/api/${screenId}/videos`, name: 'videos' },
-            { url: `${host}/api/${screenId}/organization`, name: 'organization' },
+            { url: `${host}/api/${screenId}/news`, name: 'news', paginated: true },
+            { url: `${host}/api/${screenId}/doctor_infos`, name: 'doctor_infos', paginated: true },
+            { url: `${host}/api/${screenId}/videos`, name: 'videos', paginated: true },
+            { url: `${host}/api/${screenId}/organization`, name: 'organization', paginated: false },
         ];
     }
 
@@ -28,7 +28,11 @@ class DbUpdater {
                     }
 
                     data = data.concat(responce.data);
-                    page++;
+                    if (dataType.paginated) {
+                        page++;
+                    } else {
+                        break;
+                    }
                 }
                 const dbCollection = dbService.DB.collection(dataType.name);
                 await dbCollection.deleteMany();
