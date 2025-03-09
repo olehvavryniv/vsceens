@@ -24,6 +24,17 @@ app.get('/next-screen', async (req, res) => {
   }
 });
 
+app.get('/organization-info', async (req, res) => {
+  const mongoService = new MongoService();
+  const organization = mongoService.getOrganization();
+
+  if (organization == null) {
+    return res.send({ error: 'no-data' });
+  } else {
+    return res.send(organization);
+  }
+});
+
 app.listen(process.env.PORT, () => {
   console.log(`VSCREEN app listening at http://localhost:${process.env.PORT}`)
 });
@@ -52,8 +63,8 @@ async function Init() {
   await MongoService.InitConnection();
   await updateData();
 
-  setInterval(() => updateData(), 60000);
-  setInterval(() => sendTemp(), 60000);
+  setInterval(() => updateData(), 60 * 60 * 1000);
+  setInterval(() => sendTemp(), 60 * 1000);
  
   console.log("App started.");
 }
