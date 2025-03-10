@@ -2,6 +2,14 @@
 
 ## Medical
 
+### Backend
+`docker build -t ghcr.io/olehvavryniv/vscreens-medical-backend:latest .`
+`docker push ghcr.io/olehvavryniv/vscreens-medical-backend:latest`
+
+### Frontend
+`docker build -t ghcr.io/olehvavryniv/vscreens-medical-frontend:latest --platform=linux/arm/v7 .`
+`docker push ghcr.io/olehvavryniv/vscreens-medical-frontend:latest`
+
 ## School
 
 ### Backend
