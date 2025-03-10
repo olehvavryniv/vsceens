@@ -26,7 +26,7 @@ app.get('/next-screen', async (req, res) => {
 
 app.get('/organization-info', async (req, res) => {
   const mongoService = new MongoService();
-  const organization = mongoService.getOrganization();
+  const organization = await mongoService.getOrganization();
 
   if (organization == null) {
     return res.send({ error: 'no-data' });

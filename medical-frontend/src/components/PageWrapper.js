@@ -9,21 +9,21 @@ const organizationInfoUrl = 'http://localhost:3001/organization-info'
 
 function PageWrapper() {
     const [screen, setScreen] = useState(null);
-    const [organizationInfo, setOrganizationInfo] = useState(null);
     const [screenTimerId, setScreenTimerId] = useState(0);
+    let organizationInfo = null;
 
     const getNextScreen = async () => {
         const screenResponse = await Axios.get(nextScreenUrl);
         const organizationResponse = await Axios.get(organizationInfoUrl);
         
         const timerId = setTimeout(() => { getNextScreen() }, screenResponse.data.durationSeconds * 1000);
-        setOrganizationInfo(organizationResponse.data);
+        organizationInfo = organizationResponse.data;
         setScreenTimerId(timerId);
         setScreen(screenResponse.data);
     };
 
     const checkMinuteOfSilence = () => {
-        if (!organizationInfo.minuteOfSileceEnabled) {
+        if (!organizationInfo?.minuteOfSilenceEnabled) {
             return;
         }
 
@@ -37,13 +37,18 @@ function PageWrapper() {
         }
 
         clearTimeout(screenTimerId);
-        setTimeout(() => { getNextScreen() }, organizationInfo.organizationInfo * 1000);
-        setScreen({ name: 'videos', data: { code: organizationInfo.organizationInfo } })
+        setTimeout(() => { getNextScreen() }, (organizationInfo.minuteOfSilenceVideoDuration + 3) * 1000);
+        setScreen({ name: 'videos', data: { code: organizationInfo.minuteOfSilenceVideoCode } })
     };
 
     useEffect(() => {
         getNextScreen();
-        setInterval(checkMinuteOfSilence, 60 * 1000);
+    }, []);
+
+    useEffect(() => {
+        const intervalId = setInterval(() => { checkMinuteOfSilence() }, 60 * 1000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     const selectScreen = (screenInfo) => {
